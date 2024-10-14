@@ -11,6 +11,16 @@ use App\Http\Controllers\buku\PenulisController;
 use App\Http\Controllers\buku\RatingController;
 use App\Http\Controllers\buku\StatusController;
 use App\Http\Controllers\buku\TahunTerbitController;
+use App\Http\Controllers\kesehatan\RekamMedisPasienController;
+use App\Http\Controllers\kesehatan\JadwalVaksinasiController;
+use App\Http\Controllers\kesehatan\DataNutrisiController;
+use App\Http\Controllers\kesehatan\CatatanAktivitasFisikController;
+use App\Http\Controllers\kesehatan\ManajemenStresController;
+use App\Http\Controllers\kesehatan\PemantauanTidurController;
+use App\Http\Controllers\kesehatan\KesehatanMentalController;
+use App\Http\Controllers\kesehatan\RiwayatAlergiController;
+use App\Http\Controllers\kesehatan\PengingatObatController;
+use App\Http\Controllers\kesehatan\CatatanKehamilanController;
 use Illuminate\Support\Facades\Route;
 
 // Registrasi
@@ -164,24 +174,144 @@ Route::prefix('buku')->group(function () {
 // 1. Aplikasi Manajemen Kesehatan
 Route::prefix('kesehatan')->group(function () {
     // 0 . Table Rekam Medis Pasien
+    Route::prefix('rekam_medis_pasien')->group(function () {
+        // Get All
+        Route::get('', [RekamMedisPasienController::class, 'index']);
+        // Show 
+        Route::get('{id}', [RekamMedisPasienController::class, 'show']);
+        // Create 
+        Route::post('', [RekamMedisPasienController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [RekamMedisPasienController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [RekamMedisPasienController::class, 'destroy']);
+    });
 
     // 1 . Table Jadwal Vaksinasi
+    Route::prefix('jadwal_vaksinasi')->group(function () {
+        // Get All
+        Route::get('', [JadwalVaksinasiController::class, 'index']);
+        // Show 
+        Route::get('{id}', [JadwalVaksinasiController::class, 'show']);
+        // Create 
+        Route::post('', [JadwalVaksinasiController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [JadwalVaksinasiController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [JadwalVaksinasiController::class, 'destroy']);
+    });
 
     // 2 . Table Data Nutrisi
+    Route::prefix('data_nutrisi')->group(function () {
+        // Get All
+        Route::get('', [DataNutrisiController::class, 'index']);
+        // Show 
+        Route::get('{id}', [DataNutrisiController::class, 'show']);
+        // Create 
+        Route::post('', [DataNutrisiController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [DataNutrisiController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [DataNutrisiController::class, 'destroy']);
+    });
 
     // 3 . Table Catatan Aktivitas Fisik
+    Route::prefix('catatan_aktivitas_fisik')->group(function () {
+        // Get All
+        Route::get('', [CatatanAktivitasFisikController::class, 'index']);
+        // Show 
+        Route::get('{id}', [CatatanAktivitasFisikController::class, 'show']);
+        // Create 
+        Route::post('', [CatatanAktivitasFisikController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [CatatanAktivitasFisikController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [CatatanAktivitasFisikController::class, 'destroy']);
+    });
 
     // 4 . Table Manajemen Stres
+    Route::prefix('manajemen_stres')->group(function () {
+        // Get All
+        Route::get('', [ManajemenStresController::class, 'index']);
+        // Show 
+        Route::get('{id}', [ManajemenStresController::class, 'show']);
+        // Create 
+        Route::post('', [ManajemenStresController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [ManajemenStresController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [ManajemenStresController::class, 'destroy']);
+    });
 
     // 5 . Table Pemantauan Tidur
+    Route::prefix('pemantauan_tidur')->group(function () {
+        // Get All
+        Route::get('', [PemantauanTidurController::class, 'index']);
+        // Show 
+        Route::get('{id}', [PemantauanTidurController::class, 'show']);
+        // Create 
+        Route::post('', [PemantauanTidurController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [PemantauanTidurController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [PemantauanTidurController::class, 'destroy']);
+    });
 
     // 6 . Table Kesehatan Mental
+    Route::prefix('kesehatan_mental')->group(function () {
+        // Get All
+        Route::get('', [KesehatanMentalController::class, 'index']);
+        // Show 
+        Route::get('{id}', [KesehatanMentalController::class, 'show']);
+        // Create 
+        Route::post('', [KesehatanMentalController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [KesehatanMentalController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [KesehatanMentalController::class, 'destroy']);
+    });
 
     // 7 . Table Riwayat Alergi
+    Route::prefix('riwayat_alergi')->group(function () {
+        // Get All
+        Route::get('', [RiwayatAlergiController::class, 'index']);
+        // Show 
+        Route::get('{id}', [RiwayatAlergiController::class, 'show']);
+        // Create 
+        Route::post('', [RiwayatAlergiController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [RiwayatAlergiController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [RiwayatAlergiController::class, 'destroy']);
+    });
 
     // 8 . Table Pengingat Obat
+    Route::prefix('pengingat_obat')->group(function () {
+        // Get All
+        Route::get('', [PengingatObatController::class, 'index']);
+        // Show 
+        Route::get('{id}', [PengingatObatController::class, 'show']);
+        // Create 
+        Route::post('', [PengingatObatController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [PengingatObatController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [PengingatObatController::class, 'destroy']);
+    });
 
     // 9 . Table Catatan Kehamilan
+    Route::prefix('catatan_kehamilan')->group(function () {
+        // Get All
+        Route::get('', [CatatanKehamilanController::class, 'index']);
+        // Show 
+        Route::get('{id}', [CatatanKehamilanController::class, 'show']);
+        // Create 
+        Route::post('', [CatatanKehamilanController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [CatatanKehamilanController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [CatatanKehamilanController::class, 'destroy']);
+    });
 });
 
 
