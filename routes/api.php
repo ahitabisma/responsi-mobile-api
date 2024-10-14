@@ -21,6 +21,16 @@ use App\Http\Controllers\kesehatan\KesehatanMentalController;
 use App\Http\Controllers\kesehatan\RiwayatAlergiController;
 use App\Http\Controllers\kesehatan\PengingatObatController;
 use App\Http\Controllers\kesehatan\CatatanKehamilanController;
+use App\Http\Controllers\keuangan\AnggaranController;
+use App\Http\Controllers\keuangan\Catatan_transaksiController;
+use App\Http\Controllers\keuangan\Hutang_piutangController;
+use App\Http\Controllers\keuangan\InvestasiController;
+use App\Http\Controllers\keuangan\Kategori_transaksiController;
+use App\Http\Controllers\keuangan\Laporan_bulananController;
+use App\Http\Controllers\keuangan\Mata_uangController;
+use App\Http\Controllers\keuangan\PemasukanController;
+use App\Http\Controllers\keuangan\PengeluaranController;
+use App\Http\Controllers\keuangan\SaldoController;
 use Illuminate\Support\Facades\Route;
 
 // Registrasi
@@ -317,6 +327,16 @@ Route::prefix('kesehatan')->group(function () {
 
 // 2. Aplikasi Manajemen Keuangan
 Route::prefix('keuangan')->group(function () {
+    Route::resource('anggaran',AnggaranController::class);
+    Route::resource('catatan_transaksi',Catatan_transaksiController::class);
+    Route::resource('hutang_piutang',Hutang_piutangController::class);
+    Route::resource('investasi',InvestasiController::class);
+    Route::resource('kategori_transaksi',Kategori_transaksiController::class);
+    Route::resource('laporan_bulanan',Laporan_bulananController::class);
+    Route::resource('mata_uang',Mata_uangController::class);
+    Route::resource('pemasukan',PemasukanController::class);
+    Route::resource('pengeluaran',PengeluaranController::class);
+    Route::resource('saldo',SaldoController::class);
     // 0 . Table Pemasukan
 
     // 1 . Table Pengeluaran
