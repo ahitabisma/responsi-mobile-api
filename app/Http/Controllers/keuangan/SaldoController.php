@@ -4,82 +4,90 @@ namespace App\Http\Controllers\keuangan;
 
 use App\Http\Controllers\BaseController;
 use App\Models\keuangan\Saldo;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class SaldoController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    // Get All 
+    public function index(): JsonResponse
     {
-        $saldo = Saldo::all();
-        // return view("saldo.index", compact("saldo"));
-        return response()->json($saldo);
+        try {
+            $data = Saldo::all();
+
+            return $this->sendResponse(200, true, $data);
+        } catch (\Exception $e) {
+            return $this->sendResponse(500, false, $e->getMessage());
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // Show 
+    public function show(int $id): JsonResponse
     {
-        // return view("saldo.create");
-        return response()->json(Saldo::all());
+        try {
+            $saldo = Saldo::find($id);
+
+            if (!$saldo) return $this->sendResponse(404, false, null);
+
+            return $this->sendResponse(200, true, $saldo);
+        } catch (\Exception $e) {
+            return $this->sendResponse(500, false, $e->getMessage());
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    // Create 
+    public function store(Request $request): JsonResponse
     {
-        $saldo = Saldo::create($request->all());
-        // return redirect()->route("saldo.index")->with("success","");
-        return response()->json($saldo)->with("success","");
+        try {
+            $validated = $request->validate([
+                'account' => 'required',
+                'balance' => 'required|integer',
+                'status' => 'required',
+            ]);
+
+            $data = Saldo::create($validated);
+
+            return $this->sendResponse(200, true, $data);
+        } catch (\Exception $e) {
+            return $this->sendResponse(500, false, $e->getMessage());
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Update 
+    public function update(Request $request, int $id): JsonResponse
     {
-        $saldo = Saldo::find($id);
-        if (!$saldo) return response()->json(null,404);
-        // return view("saldo.show", compact("saldo"));
-        return response()->json($saldo);
+        try {
+            $validated = $request->validate([
+                'account' => 'required',
+                'balance' => 'required|integer',
+                'status' => 'required',
+            ]);
+
+            $saldo = Saldo::find($id);
+
+            if (!$saldo) return $this->sendResponse(404, false, null);
+
+            $saldo->update($validated);
+
+            return $this->sendResponse(200, true, $saldo);
+        } catch (\Exception $e) {
+            return $this->sendResponse(500, false, $e->getMessage());
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // Delete 
+    public function destroy(int $id): JsonResponse
     {
-        $saldo = Saldo::find($id);
-        if (!$saldo) return response()->json(null,404);
-        // return view("saldo.edit", compact("saldo"));
-        return response()->json($saldo);
-    }
+        try {
+            $saldo = Saldo::find($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $saldo = Saldo::find($id);
-        if (!$saldo) return response()->json(null,404);
-        $saldo->update($request->all());
-        // return redirect()->route("saldo.index")->with("success","");
-        return response()->json($saldo)->with("success","");
-    }
+            if (!$saldo) return $this->sendResponse(404, false, null);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        $saldo = Saldo::find($id);
-        if (!$saldo) return response()->json(null,404);
-        $saldo->delete();
-        // return redirect()->route("saldo.index")->with("success","");
-        return response()->json(null)->with("success","");
+            $data = $saldo->delete();
+
+            return $this->sendResponse(200, true, $data);
+        } catch (\Exception $e) {
+            return $this->sendResponse(500, false, $e->getMessage());
+        }
     }
 }

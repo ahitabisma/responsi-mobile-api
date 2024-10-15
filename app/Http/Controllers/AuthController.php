@@ -40,7 +40,7 @@ class AuthController extends BaseController
             ]);
 
             if (!Auth::attempt($validated)) {
-                return $this->sendResponse(401, false, 'Invalid credentials');
+                return $this->sendResponse(401, false, 'Email atau password salah');
             }
 
             $user = User::where('email', $request->email)->firstOrFail();

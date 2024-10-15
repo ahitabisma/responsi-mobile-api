@@ -4,82 +4,90 @@ namespace App\Http\Controllers\keuangan;
 
 use App\Http\Controllers\BaseController;
 use App\Models\keuangan\Pengeluaran;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PengeluaranController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    // Get All 
+    public function index(): JsonResponse
     {
-        $pengeluaran = Pengeluaran::all();
-        // return view("pengeluaran.index", compact("pengeluaran"));
-        return response()->json($pengeluaran);
+        try {
+            $data = Pengeluaran::all();
+
+            return $this->sendResponse(200, true, $data);
+        } catch (\Exception $e) {
+            return $this->sendResponse(500, false, $e->getMessage());
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // Show 
+    public function show(int $id): JsonResponse
     {
-        // return view("pengeluaran.create");
-        return response()->json(Pengeluaran::all());
+        try {
+            $pengeluaran = Pengeluaran::find($id);
+
+            if (!$pengeluaran) return $this->sendResponse(404, false, null);
+
+            return $this->sendResponse(200, true, $pengeluaran);
+        } catch (\Exception $e) {
+            return $this->sendResponse(500, false, $e->getMessage());
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    // Create 
+    public function store(Request $request): JsonResponse
     {
-        $pengeluaran = Pengeluaran::create($request->all());
-        // return redirect()->route("pengeluaran.index")->with("success","");
-        return response()->json($pengeluaran);
+        try {
+            $validated = $request->validate([
+                'expense' => 'required',
+                'cost' => 'required|integer',
+                'category' => 'required',
+            ]);
+
+            $data = Pengeluaran::create($validated);
+
+            return $this->sendResponse(200, true, $data);
+        } catch (\Exception $e) {
+            return $this->sendResponse(500, false, $e->getMessage());
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Update 
+    public function update(Request $request, int $id): JsonResponse
     {
-        $pengeluaran = Pengeluaran::find($id);
-        if (!$pengeluaran) return response()->json(null,404);
-        // return view("pengeluaran.show", compact("pengeluaran"));
-        return response()->json($pengeluaran);
+        try {
+            $validated = $request->validate([
+                'expense' => 'required',
+                'cost' => 'required|integer',
+                'category' => 'required',
+            ]);
+
+            $pengeluaran = Pengeluaran::find($id);
+
+            if (!$pengeluaran) return $this->sendResponse(404, false, null);
+
+            $pengeluaran->update($validated);
+
+            return $this->sendResponse(200, true, $pengeluaran);
+        } catch (\Exception $e) {
+            return $this->sendResponse(500, false, $e->getMessage());
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // Delete 
+    public function destroy(int $id): JsonResponse
     {
-        $pengeluaran = Pengeluaran::find($id);
-        if (!$pengeluaran) return response()->json(null,404);
-        // return view("pengeluaran.edit", compact("pengeluaran"));
-        return response()->json($pengeluaran);
-    }
+        try {
+            $pengeluaran = Pengeluaran::find($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $pengeluaran = Pengeluaran::find($id);
-        if (!$pengeluaran) return response()->json(null,404);
-        $pengeluaran->update($request->all());
-        // return redirect()->route("pengeluaran.index")->with("success","");
-        return response()->json($pengeluaran)->with("success","");
-    }
+            if (!$pengeluaran) return $this->sendResponse(404, false, null);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        $pengeluaran = Pengeluaran::find($id);
-        if (!$pengeluaran) return response()->json(null,404);
-        $pengeluaran->delete();
-        // return redirect()->route("pengeluaran.index")->with("success","");
-        return response()->json(null)->with("success","");
+            $data = $pengeluaran->delete();
+
+            return $this->sendResponse(200, true, $data);
+        } catch (\Exception $e) {
+            return $this->sendResponse(500, false, $e->getMessage());
+        }
     }
 }

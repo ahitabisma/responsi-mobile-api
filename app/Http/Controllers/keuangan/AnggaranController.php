@@ -4,83 +4,90 @@ namespace App\Http\Controllers\keuangan;
 
 use App\Http\Controllers\BaseController;
 use App\Models\keuangan\Anggaran;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Response;
 
 class AnggaranController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    // Get All 
+    public function index(): JsonResponse
     {
-        $anggaran = Anggaran::all();
-        // return view("anggaran.index", compact("anggaran"));
-        return response()->json($anggaran);
+        try {
+            $data = Anggaran::all();
+
+            return $this->sendResponse(200, true, $data);
+        } catch (\Exception $e) {
+            return $this->sendResponse(500, false, $e->getMessage());
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // Show 
+    public function show(int $id): JsonResponse
     {
-        // return view("anggaran.create");
-        return response()->json(Anggaran::all());
+        try {
+            $anggaran = Anggaran::find($id);
+
+            if (!$anggaran) return $this->sendResponse(404, false, null);
+
+            return $this->sendResponse(200, true, $anggaran);
+        } catch (\Exception $e) {
+            return $this->sendResponse(500, false, $e->getMessage());
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    // Create 
+    public function store(Request $request): JsonResponse
     {
-        $anggaran = Anggaran::create($request->all());
-        // return redirect()->route("anggaran.index")->with("success","");
-        return response()->json($anggaran)->with("success","");
+        try {
+            $validated = $request->validate([
+                'budget_item' => 'required',
+                'allocated' => 'required',
+                'spent' => 'required|integer',
+            ]);
+
+            $data = Anggaran::create($validated);
+
+            return $this->sendResponse(200, true, $data);
+        } catch (\Exception $e) {
+            return $this->sendResponse(500, false, $e->getMessage());
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Update 
+    public function update(Request $request, int $id): JsonResponse
     {
-        $anggaran = Anggaran::find($id);
-        if (!$anggaran) return response()->json(null,404);
-        // return view("anggaran.show", compact("anggaran"));
-        return response()->json($anggaran);
+        try {
+            $validated = $request->validate([
+                'budget_item' => 'required',
+                'allocated' => 'required',
+                'spent' => 'required|integer',
+            ]);
+
+            $anggaran = Anggaran::find($id);
+
+            if (!$anggaran) return $this->sendResponse(404, false, null);
+
+            $anggaran->update($validated);
+
+            return $this->sendResponse(200, true, $anggaran);
+        } catch (\Exception $e) {
+            return $this->sendResponse(500, false, $e->getMessage());
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // Delete 
+    public function destroy(int $id): JsonResponse
     {
-        $anggaran = Anggaran::find($id);
-        if (!$anggaran) return response()->json(null,404);
-        // return view("anggaran.edit", compact("anggaran"));
-        return response()->json($anggaran);
-    }
+        try {
+            $anggaran = Anggaran::find($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $anggaran = Anggaran::find($id);
-        if (!$anggaran) return response()->json(null,404);
-        $anggaran->update($request->all());
-        // return redirect()->route("anggaran.index")->with("success","");
-        return response()->json($anggaran)->with("success","");
-    }
+            if (!$anggaran) return $this->sendResponse(404, false, null);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        $anggaran = Anggaran::find($id);
-        if (!$anggaran) return response()->json(null,404);
-        $anggaran->delete();
-        // return redirect()->route("anggaran.index")->with("success","");
-        return response()->json(null)->with("success","");
+            $data = $anggaran->delete();
+
+            return $this->sendResponse(200, true, $data);
+        } catch (\Exception $e) {
+            return $this->sendResponse(500, false, $e->getMessage());
+        }
     }
 }

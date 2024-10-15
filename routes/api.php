@@ -22,12 +22,12 @@ use App\Http\Controllers\kesehatan\RiwayatAlergiController;
 use App\Http\Controllers\kesehatan\PengingatObatController;
 use App\Http\Controllers\kesehatan\CatatanKehamilanController;
 use App\Http\Controllers\keuangan\AnggaranController;
-use App\Http\Controllers\keuangan\Catatan_transaksiController;
-use App\Http\Controllers\keuangan\Hutang_piutangController;
+use App\Http\Controllers\keuangan\CatatanTransaksiController;
+use App\Http\Controllers\keuangan\HutangPiutangController;
 use App\Http\Controllers\keuangan\InvestasiController;
-use App\Http\Controllers\keuangan\Kategori_transaksiController;
-use App\Http\Controllers\keuangan\Laporan_bulananController;
-use App\Http\Controllers\keuangan\Mata_uangController;
+use App\Http\Controllers\keuangan\KategoriTransaksiController;
+use App\Http\Controllers\keuangan\LaporanBulananController;
+use App\Http\Controllers\keuangan\MataUangController;
 use App\Http\Controllers\keuangan\PemasukanController;
 use App\Http\Controllers\keuangan\PengeluaranController;
 use App\Http\Controllers\keuangan\SaldoController;
@@ -337,35 +337,145 @@ Route::prefix('kesehatan')->group(function () {
 
 // 2. Aplikasi Manajemen Keuangan
 Route::prefix('keuangan')->group(function () {
-    Route::resource('anggaran',AnggaranController::class);
-    Route::resource('catatan_transaksi',Catatan_transaksiController::class);
-    Route::resource('hutang_piutang',Hutang_piutangController::class);
-    Route::resource('investasi',InvestasiController::class);
-    Route::resource('kategori_transaksi',Kategori_transaksiController::class);
-    Route::resource('laporan_bulanan',Laporan_bulananController::class);
-    Route::resource('mata_uang',Mata_uangController::class);
-    Route::resource('pemasukan',PemasukanController::class);
-    Route::resource('pengeluaran',PengeluaranController::class);
-    Route::resource('saldo',SaldoController::class);
     // 0 . Table Pemasukan
+    Route::prefix('pemasukan')->group(function () {
+        // Get All
+        Route::get('', [PemasukanController::class, 'index']);
+        // Show 
+        Route::get('{id}', [PemasukanController::class, 'show']);
+        // Create 
+        Route::post('', [PemasukanController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [PemasukanController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [PemasukanController::class, 'destroy']);
+    });
 
     // 1 . Table Pengeluaran
+    Route::prefix('pengeluaran')->group(function () {
+        // Get All
+        Route::get('', [PengeluaranController::class, 'index']);
+        // Show 
+        Route::get('{id}', [PengeluaranController::class, 'show']);
+        // Create 
+        Route::post('', [PengeluaranController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [PengeluaranController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [PengeluaranController::class, 'destroy']);
+    });
 
     // 2 . Table Kategori Transaksi
+    Route::prefix('kategori_transaksi')->group(function () {
+        // Get All
+        Route::get('', [KategoriTransaksiController::class, 'index']);
+        // Show 
+        Route::get('{id}', [KategoriTransaksiController::class, 'show']);
+        // Create 
+        Route::post('', [KategoriTransaksiController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [KategoriTransaksiController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [KategoriTransaksiController::class, 'destroy']);
+    });
 
     // 3 . Table Saldo
+    Route::prefix('saldo')->group(function () {
+        // Get All
+        Route::get('', [SaldoController::class, 'index']);
+        // Show 
+        Route::get('{id}', [SaldoController::class, 'show']);
+        // Create 
+        Route::post('', [SaldoController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [SaldoController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [SaldoController::class, 'destroy']);
+    });
 
     // 4 . Table Investasi
+    Route::prefix('investasi')->group(function () {
+        // Get All
+        Route::get('', [InvestasiController::class, 'index']);
+        // Show 
+        Route::get('{id}', [InvestasiController::class, 'show']);
+        // Create 
+        Route::post('', [InvestasiController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [InvestasiController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [InvestasiController::class, 'destroy']);
+    });
 
     // 5 . Table Hutang Piutang
+    Route::prefix('hutang_piutang')->group(function () {
+        // Get All
+        Route::get('', [HutangPiutangController::class, 'index']);
+        // Show 
+        Route::get('{id}', [HutangPiutangController::class, 'show']);
+        // Create 
+        Route::post('', [HutangPiutangController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [HutangPiutangController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [HutangPiutangController::class, 'destroy']);
+    });
 
     // 6 . Table Anggaran
+    Route::prefix('anggaran')->group(function () {
+        // Get All
+        Route::get('', [AnggaranController::class, 'index']);
+        // Show 
+        Route::get('{id}', [AnggaranController::class, 'show']);
+        // Create 
+        Route::post('', [AnggaranController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [AnggaranController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [AnggaranController::class, 'destroy']);
+    });
 
     // 7 . Table Laporan Bulanan
+    Route::prefix('laporan_bulanan')->group(function () {
+        // Get All
+        Route::get('', [LaporanBulananController::class, 'index']);
+        // Show 
+        Route::get('{id}', [LaporanBulananController::class, 'show']);
+        // Create 
+        Route::post('', [LaporanBulananController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [LaporanBulananController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [LaporanBulananController::class, 'destroy']);
+    });
 
     // 8 . Table Catatan Transaksi
+    Route::prefix('catatan_transaksi')->group(function () {
+        // Get All
+        Route::get('', [CatatanTransaksiController::class, 'index']);
+        // Show 
+        Route::get('{id}', [CatatanTransaksiController::class, 'show']);
+        // Create 
+        Route::post('', [CatatanTransaksiController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [CatatanTransaksiController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [CatatanTransaksiController::class, 'destroy']);
+    });
 
     // 9 . Table Mata Uang
+    Route::prefix('mata_uang')->group(function () {
+        // Get All
+        Route::get('', [MataUangController::class, 'index']);
+        // Show 
+        Route::get('{id}', [MataUangController::class, 'show']);
+        // Create 
+        Route::post('', [MataUangController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [MataUangController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [MataUangController::class, 'destroy']);
+    });
 });
 
 

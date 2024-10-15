@@ -8,5 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Anggaran extends Model
 {
     use HasFactory;
-    protected $table = 'anggaran';
+
+    protected $table = 'keuangan_anggaran';
+
+    protected $fillable = ['budget_item', 'allocated', 'spent'];
 }
