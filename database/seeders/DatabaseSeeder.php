@@ -25,5 +25,15 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SegmentSeeder::class,
         ]);
+        $this->call(PemasukanSeeder::class);
+        $this->call(PengeluaranSeeder::class);
+        $this->call(Kategori_transaksiSeeder::class);
+        $this->call(SaldoSeeder::class);
+        $this->call(InvestasiSeeder::class);
+        $this->call(Hutang_piutangSeeder::class);
+        $this->call(AnggaranSeeder::class);
+        $this->call(Laporan_bulananSeeder::class);
+        $this->call(Catatan_transaksiSeeder::class);
+        $this->call(Mata_uangSeeder::class);
     }
 }
