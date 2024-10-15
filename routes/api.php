@@ -21,6 +21,16 @@ use App\Http\Controllers\kesehatan\KesehatanMentalController;
 use App\Http\Controllers\kesehatan\RiwayatAlergiController;
 use App\Http\Controllers\kesehatan\PengingatObatController;
 use App\Http\Controllers\kesehatan\CatatanKehamilanController;
+use App\Http\Controllers\pariwisata\DestinasiWisataController;
+use App\Http\Controllers\pariwisata\DurasiTurController;
+use App\Http\Controllers\pariwisata\FasilitasController;
+use App\Http\Controllers\pariwisata\HargaTiketController;
+use App\Http\Controllers\pariwisata\JadwalKeberangkatanController;
+use App\Http\Controllers\pariwisata\PaketWisataController;
+use App\Http\Controllers\pariwisata\PemanduWisataController;
+use App\Http\Controllers\pariwisata\PenginapanController;
+use App\Http\Controllers\pariwisata\TransportasiController;
+use App\Http\Controllers\pariwisata\UlasanController;
 use Illuminate\Support\Facades\Route;
 
 // Registrasi
@@ -342,22 +352,133 @@ Route::prefix('keuangan')->group(function () {
 // 3. Aplikasi Manajemen Pariwisata
 Route::prefix('pariwisata')->group(function () {
     // 0 . Table Destinasi Wisata
-
+    Route::prefix('destinasi_wisata')->group(function () {
+        // Get All
+        Route::get('', [DestinasiWisataController::class, 'index']);
+        // Show 
+        Route::get('{id}', [DestinasiWisataController::class, 'show']);
+        // Create 
+        Route::post('', [DestinasiWisataController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [DestinasiWisataController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [DestinasiWisataController::class, 'destroy']);
+    });
     // 1 . Table Harga Tiket
-
+    Route::prefix('harga_tiket')->group(function () {
+        // Get All
+        Route::get('', [HargaTiketController::class, 'index']);
+        // Show 
+        Route::get('{id}', [HargaTiketController::class, 'show']);
+        // Create 
+        Route::post('', [HargaTiketController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [HargaTiketController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [HargaTiketController::class, 'destroy']);
+    });
     // 2 . Table Jadwal Keberangkatan
-
+    Route::prefix('jadwal_keberangkatan')->group(function () {
+        // Get All
+        Route::get('', [JadwalKeberangkatanController::class, 'index']);
+        // Show 
+        Route::get('{id}', [JadwalKeberangkatanController::class, 'show']);
+        // Create 
+        Route::post('', [JadwalKeberangkatanController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [JadwalKeberangkatanController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [JadwalKeberangkatanController::class, 'destroy']);
+    });
     // 3 . Table Durasi Tur
-
+    Route::prefix('durasi_tur')->group(function () {
+        // Get All
+        Route::get('', [DurasiTurController::class, 'index']);
+        // Show 
+        Route::get('{id}', [DurasiTurController::class, 'show']);
+        // Create 
+        Route::post('', [DurasiTurController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [DurasiTurController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [DurasiTurController::class, 'destroy']);
+    });
     // 4 . Table Fasilitas
-
+    Route::prefix('fasilitas')->group(function () {
+        // Get All
+        Route::get('', [FasilitasController::class, 'index']);
+        // Show 
+        Route::get('{id}', [FasilitasController::class, 'show']);
+        // Create 
+        Route::post('', [FasilitasController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [FasilitasController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [FasilitasController::class, 'destroy']);
+    });
     // 5 . Table Pemandu Wisata
-
+    Route::prefix('pemandu_wisata')->group(function () {
+        // Get All
+        Route::get('', [PemanduWisataController::class, 'index']);
+        // Show 
+        Route::get('{id}', [PemanduWisataController::class, 'show']);
+        // Create 
+        Route::post('', [PemanduWisataController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [PemanduWisataController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [PemanduWisataController::class, 'destroy']);
+    });
     // 6 . Table Transportasi
-
+    Route::prefix('transportasi')->group(function () {
+        // Get All
+        Route::get('', [TransportasiController::class, 'index']);
+        // Show 
+        Route::get('{id}', [TransportasiController::class, 'show']);
+        // Create 
+        Route::post('', [TransportasiController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [TransportasiController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [TransportasiController::class, 'destroy']);
+    });
     // 7 . Table Penginapan
-
+    Route::prefix('penginapan')->group(function () {
+        // Get All
+        Route::get('', [PenginapanController::class, 'index']);
+        // Show 
+        Route::get('{id}', [PenginapanController::class, 'show']);
+        // Create 
+        Route::post('', [PenginapanController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [PenginapanController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [PenginapanController::class, 'destroy']);
+    });
     // 8 . Table Paket Wisata
-
+    Route::prefix('paket_wisata')->group(function () {
+        // Get All
+        Route::get('', [PaketWisataController::class, 'index']);
+        // Show 
+        Route::get('{id}', [PaketWisataController::class, 'show']);
+        // Create 
+        Route::post('', [PaketWisataController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [PaketWisataController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [PaketWisataController::class, 'destroy']);
+    });
     // 9 . Table Ulasan
+    Route::prefix('ulasan')->group(function () {
+        // Get All
+        Route::get('', [UlasanController::class, 'index']);
+        // Show 
+        Route::get('{id}', [UlasanController::class, 'show']);
+        // Create 
+        Route::post('', [UlasanController::class, 'store']);
+        // Update 
+        Route::put('{id}/update', [UlasanController::class, 'update']);
+        // Delete 
+        Route::delete('{id}/delete', [UlasanController::class, 'destroy']);
+    });
 });
