@@ -35,7 +35,9 @@ Route::prefix('kesehatan')->group(function () {
 
     $kesehatan = SegmentDua::where(['paket_segment_satu' => 1])->select(['nama_tabel'])->get();
     foreach ($kesehatan as $kesehatanRoute) {
-        Route::get($kesehatanRoute->nama_tabel, [BukuController::class, 'index'])->name('kesehatan.' . $kesehatanRoute->nama_tabel);
+        Route::get($kesehatanRoute->nama_tabel, function () use ($kesehatanRoute) {
+            return view('kesehatan.'. $kesehatanRoute->nama_tabel);
+        })->name('kesehatan.' . $kesehatanRoute->nama_tabel);
     }
 });
 
@@ -45,7 +47,9 @@ Route::prefix('keuangan')->group(function () {
 
     $keuangan = SegmentDua::where(['paket_segment_satu' => 2])->select(['nama_tabel'])->get();
     foreach ($keuangan as $keuanganRoute) {
-        Route::get($keuanganRoute->nama_tabel, [BukuController::class, 'index'])->name('keuangan.' . $keuanganRoute->nama_tabel);
+        Route::get($keuanganRoute->nama_tabel, function () use ($keuanganRoute) {
+            return view('keuangan.'. $keuanganRoute->nama_tabel);
+        })->name('keuangan.' . $keuanganRoute->nama_tabel);
     }
 });
 
@@ -55,6 +59,8 @@ Route::prefix('pariwisata')->group(function () {
 
     $pariwisata = SegmentDua::where(['paket_segment_satu' => 3])->select(['nama_tabel'])->get();
     foreach ($pariwisata as $pariwisataRoute) {
-        Route::get($pariwisataRoute->nama_tabel, [BukuController::class, 'index'])->name('pariwisata.' . $pariwisataRoute->nama_tabel);
+        Route::get($pariwisataRoute->nama_tabel, function () use ($pariwisataRoute) {
+            return view('pariwisata.'. $pariwisataRoute->nama_tabel);
+        })->name('pariwisata.' . $pariwisataRoute->nama_tabel);
     }
 });
