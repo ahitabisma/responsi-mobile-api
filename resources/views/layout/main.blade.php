@@ -58,7 +58,7 @@
                 @foreach ($menu as $item)
                     <li>
                         <a href="{{ route($item['route']) }}"
-                            class="{{ url()->current() === route($item['route']) ? 'active' : '' }}">
+                            class="{{ (request()->is($item['route'] . '*') && $item['route'] === $item['route']) || request()->routeIs($item['route']) ? 'active' : '' }}">
                             {{ $item['label'] }}
                         </a>
                     </li>

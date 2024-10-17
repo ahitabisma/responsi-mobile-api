@@ -1,32 +1,60 @@
 <?php
 
+use App\Http\Controllers\BukuController;
+use App\Http\Controllers\KesehatanController;
+use App\Http\Controllers\KeuanganController;
+use App\Http\Controllers\PariwisataController;
 use App\Models\SegmentDua;
 use Illuminate\Support\Facades\Route;
 
+// Segment
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
+// User
 Route::get('/user', function () {
     return view('user');
 })->name('user');
 
-Route::get('/buku', function () {
-    $table = SegmentDua::where(['paket_segment_satu' => 0])->get();
-    return view('buku', ['table' => $table]);
-})->name('buku');
+// Buku
+Route::prefix('buku')->group(function () {
+    Route::get('', [BukuController::class, 'index'])->name('buku');
 
-Route::get('/kesehatan', function () {
-    $table = SegmentDua::where(['paket_segment_satu' => 1])->get();
-    return view('kesehatan', ['table' => $table]);
-})->name('kesehatan');
+    $bukus = SegmentDua::where(['paket_segment_satu' => 0])->select(['nama_tabel'])->get();
+    foreach ($bukus as $bukuRoute) {
+        Route::get($bukuRoute->nama_tabel, function () use ($bukuRoute) {
+            return view('buku.'. $bukuRoute->nama_tabel);
+        })->name('buku.' . $bukuRoute->nama_tabel);
+    }
+});
 
-Route::get('/keuangan', function () {
-    $table = SegmentDua::where(['paket_segment_satu' => 2])->get();
-    return view('keuangan', ['table' => $table]);
-})->name('keuangan');
+// Kesehatan
+Route::prefix('kesehatan')->group(function () {
+    Route::get('', [KesehatanController::class, 'index'])->name('kesehatan');
 
-Route::get('/pariwisata', function () {
-    $table = SegmentDua::where(['paket_segment_satu' => 3])->get();
-    return view('pariwisata', ['table' => $table]);
-})->name('pariwisata');
+    $kesehatan = SegmentDua::where(['paket_segment_satu' => 1])->select(['nama_tabel'])->get();
+    foreach ($kesehatan as $kesehatanRoute) {
+        Route::get($kesehatanRoute->nama_tabel, [BukuController::class, 'index'])->name('kesehatan.' . $kesehatanRoute->nama_tabel);
+    }
+});
+
+// Keuangan
+Route::prefix('keuangan')->group(function () {
+    Route::get('', [KeuanganController::class, 'index'])->name('keuangan');
+
+    $keuangan = SegmentDua::where(['paket_segment_satu' => 2])->select(['nama_tabel'])->get();
+    foreach ($keuangan as $keuanganRoute) {
+        Route::get($keuanganRoute->nama_tabel, [BukuController::class, 'index'])->name('keuangan.' . $keuanganRoute->nama_tabel);
+    }
+});
+
+// Pariwisata
+Route::prefix('pariwisata')->group(function () {
+    Route::get('', [PariwisataController::class, 'index'])->name('pariwisata');
+
+    $pariwisata = SegmentDua::where(['paket_segment_satu' => 3])->select(['nama_tabel'])->get();
+    foreach ($pariwisata as $pariwisataRoute) {
+        Route::get($pariwisataRoute->nama_tabel, [BukuController::class, 'index'])->name('pariwisata.' . $pariwisataRoute->nama_tabel);
+    }
+});
