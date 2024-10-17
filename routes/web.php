@@ -17,6 +17,10 @@ Route::get('/user', function () {
     return view('user');
 })->name('user');
 
+Route::get('/session', function () {
+    return view('session');
+})->name('session');
+
 // Buku
 Route::prefix('buku')->group(function () {
     Route::get('', [BukuController::class, 'index'])->name('buku');

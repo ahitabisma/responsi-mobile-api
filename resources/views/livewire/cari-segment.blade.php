@@ -31,34 +31,34 @@
         </div>
 
         {{-- Segment Satu --}}
-        <p class="mt-3">Segment Satu</p>
+        <p class="mt-3 font-bold">Segment Satu</p>
         @if (!empty($segment_satu))
-            <div>
-                <p>Paket : {{ $segment_satu['paket'] }}</p>
-                <p>Jenis Aplikasi : {{ $segment_satu['jenis_aplikasi'] }}</p>
-            </div>
+            <ol class="list-decimal ml-5">
+                <li>Paket: {{ $segment_satu['paket'] }}</li>
+                <li>Jenis Aplikasi: {{ $segment_satu['jenis_aplikasi'] }}</li>
+            </ol>
         @endif
 
         {{-- Segment Dua --}}
-        <p class="mt-3">Segment Dua</p>
+        <p class="mt-3 font-bold">Segment Dua</p>
         @if (!empty($segment_dua))
-            <div>
-                <p>Digit Puluhan : {{ $segment_dua['digit_puluhan'] }}</p>
-                <p>Nama Tabel : {{ $segment_dua['nama_tabel'] }}</p>
-                <p>Kolom 1 : {{ $segment_dua['kolom_1'] }}</p>
-                <p>Kolom 2 : {{ $segment_dua['kolom_2'] }}</p>
-                <p>Kolom 3 : {{ $segment_dua['kolom_3'] }}</p>
-                <p>Kolom 4 : {{ $segment_dua['kolom_4'] }}</p>
-            </div>
+            <ol class="list-decimal ml-5">
+                <li>Digit Puluhan: {{ $segment_dua['digit_puluhan'] }}</li>
+                <li>Nama Tabel: {{ $segment_dua['nama_tabel'] }}</li>
+                <li>Kolom 1: {{ $segment_dua['kolom_1'] }}</li>
+                <li>Kolom 2: {{ $segment_dua['kolom_2'] }}</li>
+                <li>Kolom 3: {{ $segment_dua['kolom_3'] }}</li>
+                <li>Kolom 4: {{ $segment_dua['kolom_4'] }}</li>
+            </ol>
         @endif
 
         {{-- Segment Tiga --}}
-        <p class="mt-3">Segment Tiga</p>
+        <p class="mt-3 font-bold">Segment Tiga</p>
         @if (!empty($segment_tiga))
-            <div>
-                <p>Digit Satuan : {{ $segment_tiga['digit_satuan'] }}</p>
-                <p>Kustomisasi Tampilan UI : {{ $segment_tiga['kustomisasi'] }}</p>
-            </div>
+            <ol class="list-decimal ml-5">
+                <li>Digit Satuan: {{ $segment_tiga['digit_satuan'] }}</li>
+                <li>Kustomisasi Tampilan UI: {{ $segment_tiga['kustomisasi'] }}</li>
+            </ol>
         @endif
     @endif
 </div>

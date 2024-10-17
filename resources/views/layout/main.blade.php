@@ -51,6 +51,7 @@
                     ['route' => 'kesehatan', 'label' => 'Kesehatan'],
                     ['route' => 'keuangan', 'label' => 'Keuangan'],
                     ['route' => 'pariwisata', 'label' => 'Pariwisata'],
+                    ['route' => 'session', 'label' => 'Session'],
                 ];
             @endphp
 
