@@ -10,7 +10,7 @@
         <thead>
             <tr>
                 <th class="px-4 py-2">ID</th>
-                <th class="px-4 py-2">Accomodation</th>
+                <th class="px-4 py-2">Accommodation</th>
                 <th class="px-4 py-2">Room</th>
                 <th class="px-4 py-2">Rate</th>
             </tr>
@@ -19,7 +19,7 @@
             @foreach ($list as $item)
                 <tr>
                     <td class="text-center">{{ $item->id }}</td>
-                    <td class="text-center">{{ $item->accomodation }}</td>
+                    <td class="text-center">{{ $item->accommodation }}</td>
                     <td class="text-center">{{ $item->room }}</td>
                     <td class="text-center">{{ $item->rate }}</td>
                 </tr>
