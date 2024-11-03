@@ -2,5 +2,5 @@
 
 @section('content')
     @livewire('cari-segment')
-    Ini otomatis menggunakan jenkins
+    Ini otomatis menggunakan jenkins coba
 @endsection
