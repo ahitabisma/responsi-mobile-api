@@ -2,5 +2,5 @@
 
 @section('content')
     @livewire('cari-segment')
-    test pull
+    pull berhasil
 @endsection
