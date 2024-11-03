@@ -10,12 +10,12 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     libzip-dev \
-    # zip \
-    # unzip \
+    zip \
+    unzip \
     libpq-dev
 
 # Install Extension
-RUN docker-php-ext-install pdo mysql pdo_mysql
+RUN docker-php-ext-install pdo pdo_mysql zip
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 

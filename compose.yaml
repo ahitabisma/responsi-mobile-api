@@ -12,9 +12,9 @@ services:
       - mysql_network
     restart: unless-stopped
 
-  responsi_api_nginz:
+  responsi_api_ngin:
     image: nginx:alpine
-    container_name: responsi_api_nginz
+    container_name: responsi_api_nginx
     ports:
       - "127.0.0.1:9003:80"
     networks:
