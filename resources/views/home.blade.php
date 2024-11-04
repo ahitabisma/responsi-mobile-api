@@ -2,4 +2,5 @@
 
 @section('content')
     @livewire('cari-segment')
+    ttest
 @endsection
